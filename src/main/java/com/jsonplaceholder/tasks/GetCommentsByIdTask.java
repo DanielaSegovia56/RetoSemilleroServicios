@@ -22,13 +22,6 @@ public class GetCommentsByIdTask implements Task {
                                         .queryParam("postId", 2))
         );
 
-        actor.should(
-                seeThatResponse("Email of commets is",
-                        response -> response.body("email",
-                                hasItems("Presley.Mueller@myrl.com",
-                                        "Dallas@ole.me")))
-        );
-
     }
 
     public static GetCommentsByIdTask getCommentsById(){

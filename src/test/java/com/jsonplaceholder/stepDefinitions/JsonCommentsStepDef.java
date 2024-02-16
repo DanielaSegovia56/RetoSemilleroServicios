@@ -5,6 +5,9 @@ import io.cucumber.java.en.*;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 
+import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
+import static org.hamcrest.Matchers.hasItems;
+
 
 public class JsonCommentsStepDef {
 
@@ -20,5 +23,11 @@ public class JsonCommentsStepDef {
     }
     @Then("I will be able to view the comments available for the desired PostId")
     public void iWillBeAbleToViewTheCommentsAvailableForTheDesiredPostId() {
+        manage.should(
+                seeThatResponse("Email of commets is",
+                        response -> response.body("email",
+                                hasItems("Presley.Mueller@myrl.com",
+                                        "Dallas@ole.me")))
+        );
     }
 }
