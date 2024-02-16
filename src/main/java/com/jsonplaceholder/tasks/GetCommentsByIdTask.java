@@ -6,11 +6,14 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.rest.interactions.Get;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
-import static net.serenitybdd.screenplay.rest.questions.ResponseConsequence.seeThatResponse;
-import static org.hamcrest.Matchers.hasItems;
 
 public class GetCommentsByIdTask implements Task {
 
+    public final String postId;
+
+    public GetCommentsByIdTask(String postId) {
+        this.postId = postId;
+    }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
@@ -19,12 +22,13 @@ public class GetCommentsByIdTask implements Task {
                 Get.resource("/comments")
                         .with(
                                 request -> request
-                                        .queryParam("postId", 2))
+                                        .queryParam("postId", postId))
         );
 
     }
 
-    public static GetCommentsByIdTask getCommentsById(){
-        return instrumented(GetCommentsByIdTask.class);
+    public static GetCommentsByIdTask getCommentsById(String postId){
+        return instrumented(GetCommentsByIdTask.class,postId);
     }
+
 }
